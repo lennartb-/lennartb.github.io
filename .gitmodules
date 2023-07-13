@@ -1,0 +1,3 @@
+[submodule "zola/lennartb.dev/themes/d3c3nt"]
+	path = zola/lennartb.dev/themes/d3c3nt
+	url = git://git.figbert.com/d3c3nt.git
