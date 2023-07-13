@@ -1,7 +1,8 @@
 ---
 title:  "Controlling the Logitech G29 LEDs with telemetry from Richard Burns Rally with Rust"
-date:   2023-06-24 10:22:35 +0100
+date:   2029-06-24 10:22:35 +0100
 categories: programming, rust
+draft: true
 ---
 The Logitech G29 racing wheel contains a small array of LEDs in the center that is used to indicate the engine's current RPM when it is close to the maximum and gives an indication when to shift. Support for these LEDs generally depend on the application. Many recent racing games have built-in support for the LEDs, while older have not (the hardware wasn't available back then after all). While there are some generic approaches to drive the LEDs for custom applications (such as [Fanaleds](www.fanaleds.com)), the issue is mostly that the support for a particular game varies or requires a lot of configuration.
 

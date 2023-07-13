@@ -1,9 +1,7 @@
 ---
 title: "Imprint"          
-description: "Imprint"  
-authorbox: false
-menu: main
-weight: -90
+description: "Imprint"
+showMetadata: false  
 ---
 ## Angaben gem&auml;&szlig; &sect; 5 TMG
 

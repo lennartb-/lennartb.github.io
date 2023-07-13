@@ -1,7 +1,7 @@
 baseURL = 'https://lennartb.dev/'
 languageCode = 'en-us'
 title = 'lennartb.dev'
-theme='holy'
+theme='nightfall'
 
 [Author]
 name = "Lennart Brüggemann"
@@ -14,4 +14,16 @@ name = "Lennart Brüggemann"
   toc = true # Enable Table of Contents
   pager = true # Show pager navigation (prev/next links) at the bottom of pages if true
   post_meta = ["author", "date", "categories", "translations"] # Order of post meta information
+  readingTime = false  # Show reading time on post page
+  published = false  # Show published data on post page
  
+
+ [menu]
+  [[menu.header]]
+    name = "posts"
+    weight = 1
+    url = "posts"
+  [[menu.header]]
+    name = "imprint"
+    weight = 0
+    url = "imprint"
