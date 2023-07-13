@@ -1,0 +1,17 @@
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = 'lennartb.dev'
+theme='holy'
+
+[Author]
+name = "Lennart Brüggemann"
+
+[Params]
+ dateformat = "01-02-2006"
+  subtitle = "" # Deprecated in favor of .Site.Params.logo.subtitle
+  description = "John Doe's Personal blog about everything" # Site description. Used in meta description 
+  readmore = false # Show "Read more" button in list if true
+  toc = true # Enable Table of Contents
+  pager = true # Show pager navigation (prev/next links) at the bottom of pages if true
+  post_meta = ["author", "date", "categories", "translations"] # Order of post meta information
+ 
