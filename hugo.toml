@@ -3,11 +3,9 @@ languageCode = 'en-us'
 title = 'lennartb.dev'
 theme='nightfall'
 
-[Author]
-name = "Lennart Brüggemann"
-
 [Params]
- dateformat = "01-02-2006"
+  author.name = "Lennart Brüggemann"
+  dateformat = "01-02-2006"
   subtitle = "" # Deprecated in favor of .Site.Params.logo.subtitle
   description = "John Doe's Personal blog about everything" # Site description. Used in meta description 
   readmore = false # Show "Read more" button in list if true
