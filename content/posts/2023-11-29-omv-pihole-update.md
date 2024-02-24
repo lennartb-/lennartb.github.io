@@ -1,7 +1,10 @@
 ---
 title:  "Updating the Pi-hole instance running in a container in OpenMediaVault"
 date:   1701268348
-categories: raspberry-pi, openmediavault, pi-hole
+categories:
+  - raspberry-pi
+  - openmediavault
+  - pi-hole
 ---
 
 Since the Pi-hole Docker image [should not be upgraded](https://github.com/pi-hole/docker-pi-hole#upgrading--reconfiguring) the same way as a physical instance (using `pihole -up`), the container for each new release has to be rebuild. It's surprisingly hard to find up-to-date information on how to update the image when running Pi-hole on top of an OpenMediaVault instance. Most available information is already a couple of years old, and often refers to using additional plugins (Watchtower) or still applies to the outdated Portainer variant.

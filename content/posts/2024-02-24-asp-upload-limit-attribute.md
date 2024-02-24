@@ -1,7 +1,9 @@
 ---
 title:  "Increasing the ASP.NET Core upload limit for a specific endpoint via attribute"
 date:   2024-02-24 10:22:35 +0100
-categories: c#, asp.net core
+categories:
+  - csharp
+  - ASP.NET Core
 ---
 
 By default, ASP.NET Core [limits the max request body size to 30 MB](https://github.com/aspnet/Announcements/issues/267). The limit can be increased by using a middleware, or global Kestrel configuration, as described in the linked issue. What happens if you don't want to globally increase the limit, but just for a single endpoint? The same configuration can be packaged into an attribute, and the size limit can even be made dependent of an `IConfiguration` value.
