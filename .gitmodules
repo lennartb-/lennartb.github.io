@@ -1,9 +1,0 @@
-[submodule "themes/mini"]
-	path = themes/mini
-	url = https://github.com/nodejh/hugo-theme-mini.git
-[submodule "themes/holy"]
-	path = themes/holy
-	url = https://github.com/serkodev/holy.git
-[submodule "themes/nightfall"]
-	path = themes/nightfall
-	url = https://github.com/LordMathis/hugo-theme-nightfall

@@ -1,8 +1,8 @@
 ---
 title:  "Increasing the ASP.NET Core upload limit for a specific endpoint via attribute"
-date:   2024-02-24 10:22:35 +0100
-categories:
-  - csharp
+date:   2024-02-24
+tags:
+  - C#
   - ASP.NET Core
 ---
 

@@ -1,7 +1,7 @@
 ---
 title:  "Updating the Pi-hole instance running in a container in OpenMediaVault"
-date:   1701268348
-categories:
+date:   2023-11-29
+tags:
   - raspberry-pi
   - openmediavault
   - pi-hole
