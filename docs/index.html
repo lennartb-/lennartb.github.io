@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</title>
+		<title>lennartb.dev</title>
 		<meta name="description" content="I am writing about my experiences as a naval navel-gazer.">
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="lennartb.dev">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="lennartb.dev">
@@ -480,7 +480,7 @@ h2 + .header-anchor {
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav">
-					<li class="nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/" aria-current="page">Home</a></li>
 					<li class="nav-item"><a href="/blog/">Archive</a></li>
 					<li class="nav-item"><a href="/imprint/">Imprint</a></li>
 				</ul>
@@ -489,15 +489,17 @@ h2 + .header-anchor {
 
 		<main id="skip">
 			
-<h1>Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</h1>
 
-<ul class="post-metadata">
-	<li><time datetime="2024-02-24">24 February 2024</time></li>
-	<li><a href="/tags/c/" class="post-tag">C#</a>, </li>
-	<li><a href="/tags/asp-net-core/" class="post-tag">ASP.NET Core</a></li>
+
+
+
+  <h1><a href="/blog/2024-02-24-asp-upload-limit-attribute/" class="postlist-link-title">Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</a></h1>
+    <ul class="post-metadata">
+	<li><time datetime="2024-02-24">24 February 2024</time>Tags: </li>
+		<li><a href="/tags/c/" class="post-tag">C#</a>, </li>
+		<li><a href="/tags/asp-net-core/" class="post-tag">ASP.NET Core</a></li>
 </ul>
-
-<p>By default, ASP.NET Core <a href="https://github.com/aspnet/Announcements/issues/267">limits the max request body size to 30 MB</a>. The limit can be increased by using a middleware, or global Kestrel configuration, as described in the linked issue. What happens if you don't want to globally increase the limit, but just for a single endpoint? The same configuration can be packaged into an attribute, and the size limit can even be made dependent of an <code>IConfiguration</code> value.</p>
+  <p>By default, ASP.NET Core <a href="https://github.com/aspnet/Announcements/issues/267">limits the max request body size to 30 MB</a>. The limit can be increased by using a middleware, or global Kestrel configuration, as described in the linked issue. What happens if you don't want to globally increase the limit, but just for a single endpoint? The same configuration can be packaged into an attribute, and the size limit can even be made dependent of an <code>IConfiguration</code> value.</p>
 <pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">Microsoft<span class="token punctuation">.</span>AspNetCore<span class="token punctuation">.</span>Http<span class="token punctuation">.</span>Features</span><span class="token punctuation">;</span>
 <span class="token keyword">using</span> <span class="token namespace">Microsoft<span class="token punctuation">.</span>AspNetCore<span class="token punctuation">.</span>Mvc<span class="token punctuation">.</span>Filters</span><span class="token punctuation">;</span>
 
@@ -545,13 +547,29 @@ h2 + .header-anchor {
          <span class="token punctuation">.</span><span class="token function">ToArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
  <span class="token punctuation">}</span></code></pre>
 
-<ul class="links-nextprev"><li>Previous: <a href="/blog/2023-11-29-omv-pihole-update/">Updating the Pi-hole instance running in a container in OpenMediaVault</a></li>
+   <hr class="post-separator"> 
+
+
+  <h1><a href="/blog/2023-11-29-omv-pihole-update/" class="postlist-link-title">Updating the Pi-hole instance running in a container in OpenMediaVault</a></h1>
+    <ul class="post-metadata">
+	<li><time datetime="2023-11-29">29 November 2023</time>Tags: </li>
+		<li><a href="/tags/raspberry-pi/" class="post-tag">raspberry-pi</a>, </li>
+		<li><a href="/tags/openmediavault/" class="post-tag">openmediavault</a>, </li>
+		<li><a href="/tags/pi-hole/" class="post-tag">pi-hole</a></li>
 </ul>
+  <p>Since the Pi-hole Docker image <a href="https://github.com/pi-hole/docker-pi-hole#upgrading--reconfiguring">should not be upgraded</a> the same way as a physical instance (using <code>pihole -up</code>), the container for each new release has to be rebuild. It's surprisingly hard to find up-to-date information on how to update the image when running Pi-hole on top of an OpenMediaVault instance. Most available information is already a couple of years old, and often refers to using additional plugins (Watchtower) or still applies to the outdated Portainer variant.</p>
+<p><img src="/images/11-23-omv-pihole-update.png" alt="OMV Pi-hole update" title="Image showing the three steps necessary to update the Pi-hole container in OpenMediaVault"></p>
+<p>It's actually pretty simple: First, navigate to &quot;Services&quot;-&quot;Compose&quot;-&quot;Files&quot; in the OMV web UI. Then, selecting the &quot;pull&quot; button gets the latest container version from the registry. This can take a couple of minutes. Afterwards, the container needs to be taken down using the &quot;down&quot; button and started again using &quot;up&quot;.</p>
+<p>Assuming the container has been <a href="https://github.com/pi-hole/docker-pi-hole#quick-start">configured with volumes to store the user data</a>, no configuration data is lost - it's an inplace upgrade just like using <code>pihole-up</code>.</p>
+
+   <hr class="post-separator"> 
+
+
 
 		</main>
 
 		<footer></footer>
 
-		<!-- This page `/blog/2024-02-24-asp-upload-limit-attribute/` was built on 2024-04-01T14:40:47.886Z -->
+		<!-- This page `/` was built on 2024-04-01T14:41:45.855Z -->
 	</body>
 </html>

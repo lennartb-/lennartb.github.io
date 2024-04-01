@@ -32,6 +32,16 @@
 	</url>
 	
 	<url>
+		<loc>https://lennartb.dev/tags/c/</loc>
+		<lastmod>2024-04-01</lastmod>
+	</url>
+	
+	<url>
+		<loc>https://lennartb.dev/tags/asp-net-core/</loc>
+		<lastmod>2024-04-01</lastmod>
+	</url>
+	
+	<url>
 		<loc>https://lennartb.dev/tags/raspberry-pi/</loc>
 		<lastmod>2024-04-01</lastmod>
 	</url>
@@ -43,16 +53,6 @@
 	
 	<url>
 		<loc>https://lennartb.dev/tags/pi-hole/</loc>
-		<lastmod>2024-04-01</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://lennartb.dev/tags/c/</loc>
-		<lastmod>2024-04-01</lastmod>
-	</url>
-	
-	<url>
-		<loc>https://lennartb.dev/tags/asp-net-core/</loc>
 		<lastmod>2024-04-01</lastmod>
 	</url>
 </urlset>
