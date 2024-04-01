@@ -12,10 +12,11 @@ const pluginDrafts = require("./eleventy.config.drafts.js");
 module.exports = function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
 	// For example, `./public/css/` ends up in `_site/css/`
+	// Since the site is deployed one level up (../), don't include the output folder (.).
 	eleventyConfig.addPassthroughCopy({
-		"./public/": "/",
-		"./content/images/": "/images",
-		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css"
+		"/public/": "/",
+		"/content/images/": "/images",
+		"/node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css"
 	});
 
 	// Run Eleventy when these files change:
@@ -129,7 +130,7 @@ module.exports = function(eleventyConfig) {
 			input: "content",          // default: "."
 			includes: "../_includes",  // default: "_includes"
 			data: "../_data",          // default: "_data"
-			output: "../docs"
+			output: "../"
 		},
 
 		// -----------------------------------------------------------------
