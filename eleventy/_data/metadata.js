@@ -1,8 +1,8 @@
 module.exports = {
-	title: "lennartb.dev",
+	title: "lennartb's blog",
 	url: "https://lennartb.dev/",
 	language: "en",
-	description: "I am writing about my experiences as a naval navel-gazer.",
+	description: "Website of Lennart Brüggemann",
 	author: {
 		name: "Lennart Brüggemann",
 		email: "lennartbdev@gmail.com",

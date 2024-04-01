@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:base="en">
-	<title>lennartb.dev</title>
-	<subtitle>I am writing about my experiences as a naval navel-gazer.</subtitle>
+	<title>lennartb&#39;s blog</title>
+	<subtitle>Website of Lennart Brüggemann</subtitle>
 	<link href="https://lennartb.dev/feed/feed.xml" rel="self"/>
 	<link href="https://lennartb.dev/"/>
 	<updated>2024-02-24T00:00:00Z</updated>

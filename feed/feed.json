@@ -1,10 +1,10 @@
 {
 	"version": "https://jsonfeed.org/version/1.1",
-	"title": "lennartb.dev",
+	"title": "lennartb&#39;s blog",
 	"language": "en",
 	"home_page_url": "https://lennartb.dev/",
 	"feed_url": "https://lennartb.dev/feed/feed.json",
-	"description": "I am writing about my experiences as a naval navel-gazer.",
+	"description": "Website of Lennart Brüggemann",
 	"author": {
 		"name": "Lennart Brüggemann",
 		"url": "https://lennartb.dev/"
