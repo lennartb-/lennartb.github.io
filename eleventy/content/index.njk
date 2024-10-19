@@ -10,7 +10,7 @@ numberOfLatestPostsToShow: 3
 
 {% for post in collections.posts | reverse  %}
 
-  <h1><a href="{{ post.url }}" class="postlist-link-title">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a></h1>
+  <h2><a href="{{ post.url }}" class="postlist-link-title">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a></h1>
     <ul class="post-metadata">
 	<li><time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>Tags: </li>
 	{%- for tag in post.data.tags | filterTagList %}	

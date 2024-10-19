@@ -24,7 +24,7 @@ const fn led_state_payload(state: u8) -> [u8; 8] {
     }
 ```
 
-The wheel has 10 LEDs, which are lit in pairs of two symetrically. This means we can have 5 different LED states, so for every 20% of the RPM range, one further LED pair is lit up:
+The wheel has 10 LEDs, which are lit in pairs of two symetrically. This means there can be 5 different LED states, so for every 20% of the RPM range, one further LED pair is lit up:
 
 ```rust
 fn percentage_to_led_state(percentage: u8) -> u8 {
@@ -50,3 +50,4 @@ The realtime telemetry is exposed through a UDP socket. The data received is a b
 
 The telemetry structure contains the required realtime data: The current gear, the engine RPM and a couple of other information needed, such as the ID of the car or elapsed time of a stage.
 
+The optimal shifting revs are stored in a `common.lsp` file in the sub-folder for each car. The `.lsp` extension already indicates it: the data is indeed stored in a Lisp-like format. Although I know basically nothing about programming Lisp, grabbing the values from the file is fortunately easy and doesn't require specific parsing, since it's enough to just read the lines starting with `gear0upshift`, `gear0downshift` etc. and the overall `RPMLimit`, and get the value from each line. All values are put into a simple `GearMap` struct to easily access the values later.

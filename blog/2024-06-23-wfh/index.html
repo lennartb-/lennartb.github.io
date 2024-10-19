@@ -3,15 +3,181 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>lennartb&#39;s blog</title>
+		<title>My work from home setup</title>
 		<meta name="description" content="Website of Lennart Brüggemann">
 		
-    	<meta name="robots" content="noindex,nofollow" />
- 		
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="lennartb&#39;s blog">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="lennartb&#39;s blog">
 		
-		<style>* { box-sizing: border-box; }
+		<style>/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+* { box-sizing: border-box; }
 /* Defaults */
 :root {
 	--font-family: -apple-system, system-ui, sans-serif;
@@ -317,25 +483,29 @@ h2 + .header-anchor {
 				<ul class="nav">
 					<li class="nav-item"><a href="/">Home</a></li>
 					<li class="nav-item"><a href="/blog/">Archive</a></li>
-					<li class="nav-item"><a href="/imprint/" aria-current="page">Imprint</a></li>
+					<li class="nav-item"><a href="/imprint/">Imprint</a></li>
 				</ul>
 			</nav>
 		</header>
 
 		<main id="skip">
-			<h1 id="angaben-gemaess-5-tmg" tabindex="-1">Angaben gemäß § 5 TMG <a class="header-anchor" href="#angaben-gemaess-5-tmg">#</a></h1>
-<p>Lennart Brüggemann</p>
-<p>Görresstraße 18</p>
-<p>12161 Berlin</p>
-<h2 id="kontakt" tabindex="-1">Kontakt <a class="header-anchor" href="#kontakt">#</a></h2>
-<p>Telefon: 030 86323295</p>
-<p>E-Mail: lennartbdev@gmail.com</p>
-<p>Quelle: <a href="https://www.e-recht24.de">e-recht24.de</a></p>
+			
+<h1>My work from home setup</h1>
+
+<ul class="post-metadata">
+	<li><time datetime="2024-06-23">23 June 2024</time></li>
+	<li><a href="/tags/hardware/" class="post-tag">Hardware</a></li>
+</ul>
+
+<p>Ever since the COVID-19 pandemic hit in early 2020, I've been working mostly from home.</p>
+
+<ul class="links-nextprev"><li>Previous: <a href="/blog/2024-02-24-asp-upload-limit-attribute/">Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</a></li>
+</ul>
 
 		</main>
 
 		<footer></footer>
 
-		<!-- This page `/imprint/` was built on 2024-10-19T10:24:59.966Z -->
+		<!-- This page `/blog/2024-06-23-wfh/` was built on 2024-10-19T10:24:59.969Z -->
 	</body>
 </html>

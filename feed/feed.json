@@ -11,6 +11,14 @@
 	},
 	"items": [
 		{
+			"id": "https://lennartb.dev/blog/2024-06-23-wfh/",
+			"url": "https://lennartb.dev/blog/2024-06-23-wfh/",
+			"title": "My work from home setup",
+			"content_html": "<p>Ever since the COVID-19 pandemic hit in early 2020, I've been working mostly from home.</p>\n",
+			"date_published": "2024-06-23T00:00:00Z"
+		}
+		,
+		{
 			"id": "https://lennartb.dev/blog/2024-02-24-asp-upload-limit-attribute/",
 			"url": "https://lennartb.dev/blog/2024-02-24-asp-upload-limit-attribute/",
 			"title": "Increasing the ASP.NET Core upload limit for a specific endpoint via attribute",

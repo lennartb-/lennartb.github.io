@@ -4,12 +4,21 @@
 	<subtitle>Website of Lennart Brüggemann</subtitle>
 	<link href="https://lennartb.dev/feed/feed.xml" rel="self"/>
 	<link href="https://lennartb.dev/"/>
-	<updated>2024-02-24T00:00:00Z</updated>
+	<updated>2024-06-23T00:00:00Z</updated>
 	<id>https://lennartb.dev/</id>
 	<author>
 		<name>Lennart Brüggemann</name>
 		<email>lennartbdev@gmail.com</email>
 	</author>
+	
+	<entry>
+		<title>My work from home setup</title>
+		<link href="https://lennartb.dev/blog/2024-06-23-wfh/"/>
+		<updated>2024-06-23T00:00:00Z</updated>
+		<id>https://lennartb.dev/blog/2024-06-23-wfh/</id>
+		<content type="html">&lt;p&gt;Ever since the COVID-19 pandemic hit in early 2020, I&#39;ve been working mostly from home.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</title>
