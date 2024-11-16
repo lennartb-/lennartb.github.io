@@ -9,6 +9,7 @@ const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 const pluginDrafts = require("./eleventy.config.drafts.js");
 const embedEverything = require("eleventy-plugin-embed-everything");
+const UpgradeHelper = require("@11ty/eleventy-upgrade-help");
 
 module.exports = function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
@@ -38,6 +39,7 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPlugin(pluginNavigation);
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginBundle);
+	eleventyConfig.addPlugin(UpgradeHelper);
 
 	eleventyConfig.addFilter("excerpt", (post) => {
 		const content = post.replace(/(<([^>]+)>)/gi, "");
