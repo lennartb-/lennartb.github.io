@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>lennartb&#39;s blog</title>
+		<title>Controlling the Logitech G29 LEDs with telemetry from Richard Burns Rally with Rust</title>
 		<meta name="description" content="Website of Lennart Brüggemann">
 		
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="lennartb&#39;s blog">
@@ -481,7 +481,7 @@ h2 + .header-anchor {
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav">
-					<li class="nav-item"><a href="/" aria-current="page">Home</a></li>
+					<li class="nav-item"><a href="/">Home</a></li>
 					<li class="nav-item"><a href="/blog/">Archive</a></li>
 					<li class="nav-item"><a href="/imprint/">Imprint</a></li>
 				</ul>
@@ -490,17 +490,15 @@ h2 + .header-anchor {
 
 		<main id="skip">
 			
+<h1>Controlling the Logitech G29 LEDs with telemetry from Richard Burns Rally with Rust</h1>
 
-
-
-
-  <h2><a href="/blog/2023-06-24-rbr2g29/" class="postlist-link-title">Controlling the Logitech G29 LEDs with telemetry from Richard Burns Rally with Rust</a></h1>
-    <ul class="post-metadata">
-	<li><time datetime="2024-11-16">16 November 2024</time>Tags: </li>
-		<li><a href="/tags/programming/" class="post-tag">Programming</a>, </li>
-		<li><a href="/tags/rust/" class="post-tag">Rust</a></li>
+<ul class="post-metadata">
+	<li><time datetime="2024-11-16">16 November 2024</time></li>
+	<li><a href="/tags/programming/" class="post-tag">Programming</a>, </li>
+	<li><a href="/tags/rust/" class="post-tag">Rust</a></li>
 </ul>
-  <p>The Logitech G29 racing wheel contains a small array of LEDs in the center that is used to indicate the engine's current RPM when it is close to the maximum and gives an indication when to shift. Support for these LEDs generally depends on the application. Many recent racing games have built-in support for the LEDs, while older have not (the hardware wasn't available back then after all). While there are some generic approaches to drive the LEDs for custom applications (such as <a href="www.fanaleds.com">Fanaleds</a>), the issue is mostly that the support for a particular game varies or requires a lot of configuration.</p>
+
+<p>The Logitech G29 racing wheel contains a small array of LEDs in the center that is used to indicate the engine's current RPM when it is close to the maximum and gives an indication when to shift. Support for these LEDs generally depends on the application. Many recent racing games have built-in support for the LEDs, while older have not (the hardware wasn't available back then after all). While there are some generic approaches to drive the LEDs for custom applications (such as <a href="www.fanaleds.com">Fanaleds</a>), the issue is mostly that the support for a particular game varies or requires a lot of configuration.</p>
 <p>As different cars have different RPM ranges, maxium RPM and shift points, it's also not possible to uniformly derive the state of the LEDs for a given value. Racing games often provide real-time telemetry by exposing the data via UDP which can be used by external hard- or software to display or record data.</p>
 <p>Since Richard Burns Rally (RBR) is 19 years old by this time, support for modern hardware is lacking. The G29 itself is supported, but not the LEDs. Which is why I have written <a href="https://github.com/lennartb-/RBR2G29">RBR2G29</a>, a small Rust application that controls the LEDs with data coming from RBRs telemetry. The application is a fork of <a href="https://github.com/Andris0/DR2G27">DR2G27</a>, a similar application for the G27 wheel and Dirt Rally 2. RBR is kept alive by a large community, notably the <a href="https://www.rallysimfans.hu/rbr/index.php">RallySimFans-Plugin (RSF)</a>, which improves the physics, adds additional cars and stages among other things like bugfixes and QOL improvements.</p>
 <h2 id="controlling-the-leds" tabindex="-1">Controlling the LEDs <a class="header-anchor" href="#controlling-the-leds">#</a></h2>
@@ -535,86 +533,13 @@ h2 + .header-anchor {
 <p>I've created a short video to showcase the result</p>
 <div id="hgMVkIjgzb8" class="eleventy-plugin-youtube-embed" style="position:relative;width:100%;padding-top: 56.25%;"><iframe style="position:absolute;top:0;right:0;bottom:0;left:0;width:100%;height:100%;" width="100%" height="100%" frameborder="0" title="Embedded YouTube video" src="https://www.youtube-nocookie.com/embed/hgMVkIjgzb8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-   <hr class="post-separator"> 
-
-
-  <h2><a href="/blog/2024-02-24-asp-upload-limit-attribute/" class="postlist-link-title">Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</a></h1>
-    <ul class="post-metadata">
-	<li><time datetime="2024-02-24">24 February 2024</time>Tags: </li>
-		<li><a href="/tags/c/" class="post-tag">C#</a>, </li>
-		<li><a href="/tags/asp-net-core/" class="post-tag">ASP.NET Core</a></li>
+<ul class="links-nextprev"><li>Previous: <a href="/blog/2024-02-24-asp-upload-limit-attribute/">Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</a></li>
 </ul>
-  <p>By default, ASP.NET Core <a href="https://github.com/aspnet/Announcements/issues/267">limits the max request body size to 30 MB</a>. The limit can be increased by using a middleware, or global Kestrel configuration, as described in the linked issue. What happens if you don't want to globally increase the limit, but just for a single endpoint? The same configuration can be packaged into an attribute, and the size limit can even be made dependent of an <code>IConfiguration</code> value.</p>
-<pre class="language-csharp" tabindex="0"><code class="language-csharp"><span class="token keyword">using</span> <span class="token namespace">Microsoft<span class="token punctuation">.</span>AspNetCore<span class="token punctuation">.</span>Http<span class="token punctuation">.</span>Features</span><span class="token punctuation">;</span>
-<span class="token keyword">using</span> <span class="token namespace">Microsoft<span class="token punctuation">.</span>AspNetCore<span class="token punctuation">.</span>Mvc<span class="token punctuation">.</span>Filters</span><span class="token punctuation">;</span>
-
-<span class="token keyword">namespace</span> <span class="token namespace">IncreaseUploadLimitDemo</span><span class="token punctuation">;</span>
-
-<span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">AttributeUsage</span><span class="token attribute-arguments"><span class="token punctuation">(</span>AttributeTargets<span class="token punctuation">.</span>Method<span class="token punctuation">)</span></span></span><span class="token punctuation">]</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UploadSizeLimitFilter</span><span class="token punctuation">(</span><span class="token class-name"><span class="token keyword">string</span></span> appSettingsConfigName<span class="token punctuation">)</span> <span class="token punctuation">:</span> Attribute<span class="token punctuation">,</span> IAuthorizationFilter
-<span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token return-type class-name"><span class="token keyword">void</span></span> <span class="token function">OnAuthorization</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationFilterContext</span> context<span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token class-name"><span class="token keyword">var</span></span> configuration <span class="token operator">=</span> context<span class="token punctuation">.</span>HttpContext<span class="token punctuation">.</span>RequestServices<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">GetService</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>IConfiguration<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>configuration<span class="token punctuation">?.</span><span class="token generic-method"><span class="token function">GetValue</span><span class="token generic class-name"><span class="token punctuation">&lt;</span><span class="token keyword">long</span><span class="token punctuation">?</span><span class="token punctuation">></span></span></span><span class="token punctuation">(</span>appSettingsConfigName<span class="token punctuation">)</span> <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span> maxRequestBodySize<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>context<span class="token punctuation">.</span>HttpContext<span class="token punctuation">.</span>Features<span class="token punctuation">.</span><span class="token generic-method"><span class="token function">Get</span><span class="token generic class-name"><span class="token punctuation">&lt;</span>IHttpMaxRequestBodySizeFeature<span class="token punctuation">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">is</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span> maxRequestBodySizeFeature<span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            maxRequestBodySizeFeature<span class="token punctuation">.</span>MaxRequestBodySize <span class="token operator">=</span> maxRequestBodySize<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
-<p>An <code>IAuthorizationFilter</code> is used because <code>IHttpMaxRequestBodySizeFeature.MaxRequestBodySize</code> can only be set as long as the request has not been read yet, which is the case for a regular <code>IActionFilter</code> for example.</p>
-<p>Assuming the configuration value name <code>MaxRequestBodySize</code> has been set in <code>appsettings.json</code> similar to this:</p>
-<pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"Logging"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"LogLevel"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"Default"</span><span class="token operator">:</span> <span class="token string">"Information"</span><span class="token punctuation">,</span>
-      <span class="token property">"Microsoft.AspNetCore"</span><span class="token operator">:</span> <span class="token string">"Warning"</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"AllowedHosts"</span><span class="token operator">:</span> <span class="token string">"*"</span><span class="token punctuation">,</span>
-  <span class="token property">"MaxRequestBodySize"</span><span class="token operator">:</span> <span class="token number">500000000</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>an endpoint can now be annotated with the previously implemented attribute:</p>
-<pre class="language-csharp" tabindex="0"><code class="language-csharp"> <span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">HttpGet</span><span class="token attribute-arguments"><span class="token punctuation">(</span>Name <span class="token operator">=</span> <span class="token string">"GetWeatherForecast"</span><span class="token punctuation">)</span></span></span><span class="token punctuation">]</span>
- <span class="token punctuation">[</span><span class="token attribute"><span class="token class-name">UploadSizeLimitFilter</span><span class="token attribute-arguments"><span class="token punctuation">(</span><span class="token string">"MaxRequestBodySize"</span><span class="token punctuation">)</span></span></span><span class="token punctuation">]</span>
- <span class="token keyword">public</span> <span class="token return-type class-name">IEnumerable<span class="token punctuation">&lt;</span>WeatherForecast<span class="token punctuation">></span></span> <span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
- <span class="token punctuation">{</span>
-     <span class="token keyword">return</span> Enumerable<span class="token punctuation">.</span><span class="token function">Range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Select</span><span class="token punctuation">(</span>index <span class="token operator">=></span> <span class="token keyword">new</span> <span class="token constructor-invocation class-name">WeatherForecast</span>
-         <span class="token punctuation">{</span>
-             Date <span class="token operator">=</span> DateOnly<span class="token punctuation">.</span><span class="token function">FromDateTime</span><span class="token punctuation">(</span>DateTime<span class="token punctuation">.</span>Now<span class="token punctuation">.</span><span class="token function">AddDays</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-             TemperatureC <span class="token operator">=</span> Random<span class="token punctuation">.</span>Shared<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-             Summary <span class="token operator">=</span> Summaries<span class="token punctuation">[</span>Random<span class="token punctuation">.</span>Shared<span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span>Summaries<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">]</span>
-         <span class="token punctuation">}</span><span class="token punctuation">)</span>
-         <span class="token punctuation">.</span><span class="token function">ToArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token punctuation">}</span></code></pre>
-
-   <hr class="post-separator"> 
-
-
-  <h2><a href="/blog/2023-11-29-omv-pihole-update/" class="postlist-link-title">Updating the Pi-hole instance running in a container in OpenMediaVault</a></h1>
-    <ul class="post-metadata">
-	<li><time datetime="2023-11-29">29 November 2023</time>Tags: </li>
-		<li><a href="/tags/raspberry-pi/" class="post-tag">raspberry-pi</a>, </li>
-		<li><a href="/tags/openmediavault/" class="post-tag">openmediavault</a>, </li>
-		<li><a href="/tags/pi-hole/" class="post-tag">pi-hole</a></li>
-</ul>
-  <p>Since the Pi-hole Docker image <a href="https://github.com/pi-hole/docker-pi-hole#upgrading--reconfiguring">should not be upgraded</a> the same way as a physical instance (using <code>pihole -up</code>), the container for each new release has to be rebuild. It's surprisingly hard to find up-to-date information on how to update the image when running Pi-hole on top of an OpenMediaVault instance. Most available information is already a couple of years old, and often refers to using additional plugins (Watchtower) or still applies to the outdated Portainer variant.</p>
-<p><img src="/images/11-23-omv-pihole-update.png" alt="OMV Pi-hole update" title="Image showing the three steps necessary to update the Pi-hole container in OpenMediaVault"></p>
-<p>It's actually pretty simple: First, navigate to &quot;Services&quot;-&quot;Compose&quot;-&quot;Files&quot; in the OMV web UI. Then, selecting the &quot;pull&quot; button gets the latest container version from the registry. This can take a couple of minutes. Afterwards, the container needs to be taken down using the &quot;down&quot; button and started again using &quot;up&quot;.</p>
-<p>Assuming the container has been <a href="https://github.com/pi-hole/docker-pi-hole#quick-start">configured with volumes to store the user data</a>, no configuration data is lost - it's an inplace upgrade just like using <code>pihole-up</code>.</p>
-
-   <hr class="post-separator"> 
-
-
 
 		</main>
 
 		<footer></footer>
 
-		<!-- This page `/` was built on 2024-11-16T12:44:00.077Z -->
+		<!-- This page `/blog/2023-06-24-rbr2g29/` was built on 2024-11-16T12:44:00.075Z -->
 	</body>
 </html>
