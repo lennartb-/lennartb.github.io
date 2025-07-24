@@ -6,11 +6,14 @@ eleventyNavigation:
 ---
 # Angaben gem&auml;&szlig; &sect; 5 TMG
 
-Lennart Br&uuml;ggemann
+lennartb.dev - Lennart Brüggemann
+c/o Online-Impressum.de #32885
+Europaring 90
+53757 Sankt Augustin
 
-G&ouml;rresstra&szlig;e 18
-
-12161 Berlin
+Zuständige Regulierungs- und Aufsichtsbehörde:
+Medienanstalt Berlin-Brandenburg
+Sitz: Deutschland
 
 ## Kontakt
 
