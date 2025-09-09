@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/"> 
+    <link rel="stylesheet" href="terminal-css-customized.css">
+    <link rel="stylesheet" href="custom.css">
+    
+    </head>
+
+<body class="terminal"><div class="container"><div class="container"><div class="terminal-nav"><header><div style="white-space: nowrap;">lennartb&#x27;s blog</div></header>
+        <nav class="terminal-menu"><ul><li><a href="">Home
+                    </a></li><li><a href="posts">Posts
+                    </a></li><li><a href="imprint">Imprint
+                    </a></li></ul></nav></div></div>
+
+	<main><div class="container"><h1>#Rust</h1>
+	<p>
+		Blog posts tagged with
+		<span>Rust</span></p></div>
+<ul class="list-separators"><article class="list-separators"><div class="container"><div><h1><a href="blog/2023-06-24-rbr2g29">Controlling the Logitech G29 LEDs with telemetry from Richard Burns Rally with Rust</a></h1>
+					<div class="flex-list"><time style="white-space: nowrap;" datetime="2024-11-16T00:00:00.000">November 16, 2024</time>
+						<nav class="terminal-menu"><ul style="margin-top: 0"><li>Tags:</li><li>
+										#<a href="tags/Rust">Rust</a></li><li>
+										#<a href="tags/Programming">Programming</a></li></ul></nav></div></div>
+				<div><p>The Logitech G29 racing wheel contains a small array of LEDs in the center that is used to indicate the engine's current RPM when it is close to the maximum and gives an indication when to shift. Support for these LEDs generally depends on the application. Many recent racing games have built-in support for the LEDs, while older have not (the hardware wasn't available back then after all). While there are some generic approaches to drive the LEDs for custom applications (such as <a href="www.fanaleds.com">Fanaleds</a>), the issue is mostly that the support for a particular game varies or requires a lot of configuration.</p>
+<p>As different cars have different RPM ranges, maxium RPM and shift points, it's also not possible to uniformly derive the state of the LEDs for a given value. Racing games often provide real-time telemetry by exposing the data via UDP which can be used by external hard- or software to display or record data.</p>
+<p>Since Richard Burns Rally (RBR) is 19 years old by this time, support for modern hardware is lacking. The G29 itself is supported, but not the LEDs. Which is why I have written <a href="https://github.com/lennartb-/RBR2G29">RBR2G29</a>, a small Rust application that controls the LEDs with data coming from RBRs telemetry. The application is a fork of <a href="https://github.com/Andris0/DR2G27">DR2G27</a>, a similar application for the G27 wheel and Dirt Rally 2. RBR is kept alive by a large community, notably the <a href="https://www.rallysimfans.hu/rbr/index.php">RallySimFans-Plugin (RSF)</a>, which improves the physics, adds additional cars and stages among other things like bugfixes and QOL improvements.</p>
+<h2 id="controlling-the-leds">Controlling the LEDs</h2>
+<p>Interfacing with the G29 is moderately difficult. Logitech provides an SDK for C/C++ and bindings for C#, which is however more geared towards applications that use the wheel itself. The C# bindings don't officially support alternate window handles, which means you are stuck to your application window - as soon as your window goes out of focus, no commands are sent to the wheel anymore. Since this application runs in the background of the main program (RBR), communication via the C# SDK doesn't seem to be viable anyway.</p>
+<p>Another option is to adress the device directly on a low level via HID. It was surprisingly easy to find the necessary bytes for this: in the <a href="https://github.com/torvalds/linux/blob/master/drivers/hid/hid-lg4ff.c#L1088">Linux kernel source</a>.</p>
+<p>To update the LED state of the wheel, an array of unsigned 8 bit integer values (<code>u8</code>) is send to the device. The fourth element controls which LEDs light up.</p>
+<pre><code class="language-rust">const fn led_state_payload(state: u8) -&gt; [u8; 8] {
+        [0x00, 0xF8, 0x12, state, 0x00, 0x00, 0x00, 0x01]
+    }
+</code></pre>
+<p>The wheel has 10 LEDs, which are lit in pairs of two symetrically. This means there can be 5 different LED states, so for every 20% of the RPM range, one further LED pair is lit up:</p>
+<pre><code class="language-rust">fn percentage_to_led_state(percentage: u8) -&gt; u8 {
+        match percentage {
+            MIN..=20 =&gt; 1,
+            21..=40 =&gt; 3,
+            41..=60 =&gt; 7,
+            61..=80 =&gt; 15,
+            81..=MAX =&gt; 31,
+        }
+    }
+</code></pre>
+<p>Since the LED hardware of semi-recent Logitech wheel is similar enough, the application also supports the G27 and G920 wheels. Adding support for a new wheel is as easy as detecting the PID of a supported device, as long as above HID access remains the same.</p>
+<h3 id="flashing-the-leds">Flashing the LEDs</h3>
+<p>One common feature of wheels in racing cars is that the wheel's LED bar will flash on the optimal shift point or when the maximum RPM are reached. Since the RPM number is not fully constant, but fluctuates within a certain range, just checking whether the RPMs stay the same over a period of time won't work. Instead, on every telemetry tick it is checked if the current LED state equals the maximum number of enabled lights (i.e. the engine is on or close to the maximum) and whether the RPM from the previous tick differs by less than 100 (which seems like a reasonable amount to account for the fluctuations). If this is the case, a counter gets incremented by one. On the next tick, it is checked whether the counter is above a certain threshold (60 ticks seem like a good number) and the LEDs are temporarily turned of until the the counter reaches the threshold again. This results in the LEDs flashing a couple of times per second - slow enough that on/off is clearly discernable, but fast enough to recognize it from the corner of the eye.</p>
+<h2 id="communicating-with-rbr">Communicating with RBR</h2>
+<p>There are two sources of data needed to calculate the current RPM values for the LEDs: The realtime telemetry data and the RPM ranges for the current car.</p>
+<p>The realtime telemetry is exposed through a UDP socket. The data received is a byte array, which can be deserialized into a more suitable data structure to make the values easier to access. The initially mentioned RSF plugin ships with a C-header file that defines the data structures the received bytes represent. I left the job of converting the data structures to Rust to Copilot, which went surprisingly well - I had to make no structural changes (except updating member names). The deserialization itself is done with <a href="https://serde.rs/">Serde</a>.</p>
+<p>The telemetry structure contains the required realtime data: The current gear, the engine RPM and a couple of other information needed, such as the ID of the car or elapsed time of a stage.</p>
+<p>The optimal shifting revs are stored in a <code>common.lsp</code> file in the sub-folder for each car. The <code>.lsp</code> extension already indicates it: the data is indeed stored in a Lisp-like format. Although I know basically nothing about programming Lisp, grabbing the values from the file is fortunately easy and doesn't require specific parsing, since it's enough to just read the lines starting with <code>gear0upshift</code>, <code>gear0downshift</code> etc. and the overall <code>RPMLimit</code>, and get the value from each line. All values are put into a simple <code>GearMap</code> struct to easily access the values later.</p>
+<p>On each telemetry tick it is checked whether the car or stage has changed, and a new <code>GearMap</code> is build. In any case the currently set gear is updated to have the current upshift RPM for the LED controlling logic.</p>
+<h2 id="rbr-configuration">RBR Configuration</h2>
+<p>UDP telemetry must be enabled in the RSF launcher. RBR2G29 defaults to <code>127.0.0.1:6776</code>, but can be started with the <code>-i --ip &lt;IP&gt;</code> and <code>-p --port &lt;PORT&gt;</code> arguments to use different values.</p>
+<p><img src="Content/Blog/media/11-24-rsf-telemetry-settings.png" alt="RSF Launcher telemetry settings" /> &quot;Image showing RSF Launcher UDP telemetry page with predefined settings 127.0.0.1:6776&quot;)</p>
+<p>I've created a short video to showcase the result</p>
+<p><a href="https://www.youtube.com/watch?v=hgMVkIjgzb8">https://www.youtube.com/watch?v=hgMVkIjgzb8</a></p>
+</div></div></article></ul></main>
+	
+	<hr>
+	<footer><div class="container">
+		Made with <a href="https://github.com/BlazorStatic/BlazorStatic">BlazorStatic</a> and <a href="https://terminalcss.xyz/">Terminal CSS</a>.
+		</div></footer></div>
+        </body></html>

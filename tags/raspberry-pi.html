@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/"> 
+    <link rel="stylesheet" href="terminal-css-customized.css">
+    <link rel="stylesheet" href="custom.css">
+    
+    </head>
+
+<body class="terminal"><div class="container"><div class="container"><div class="terminal-nav"><header><div style="white-space: nowrap;">lennartb&#x27;s blog</div></header>
+        <nav class="terminal-menu"><ul><li><a href="">Home
+                    </a></li><li><a href="posts">Posts
+                    </a></li><li><a href="imprint">Imprint
+                    </a></li></ul></nav></div></div>
+
+	<main><div class="container"><h1>#raspberry-pi</h1>
+	<p>
+		Blog posts tagged with
+		<span>raspberry-pi</span></p></div>
+<ul class="list-separators"><article class="list-separators"><div class="container"><div><h1><a href="blog/2023-11-29-omv-pihole-update">Updating the Pi-hole instance running in a container in OpenMediaVault</a></h1>
+					<div class="flex-list"><time style="white-space: nowrap;" datetime="2023-11-29T00:00:00.000">November 29, 2023</time>
+						<nav class="terminal-menu"><ul style="margin-top: 0"><li>Tags:</li><li>
+										#<a href="tags/raspberry-pi">raspberry-pi</a></li><li>
+										#<a href="tags/openmediavault">openmediavault</a></li><li>
+										#<a href="tags/pi-hole">pi-hole</a></li></ul></nav></div></div>
+				<div><p>Since the Pi-hole Docker image <a href="https://github.com/pi-hole/docker-pi-hole#upgrading--reconfiguring">should not be upgraded</a> the same way as a physical instance (using <code>pihole -up</code>), the container for each new release has to be rebuild. It's surprisingly hard to find up-to-date information on how to update the image when running Pi-hole on top of an OpenMediaVault instance. Most available information is already a couple of years old, and often refers to using additional plugins (Watchtower) or still applies to the outdated Portainer variant.</p>
+<p><img src="Content/Blog/media/11-23-omv-pihole-update.png" alt="OMV Pi-hole update" title="Image showing the three steps necessary to update the Pi-hole container in OpenMediaVault" /></p>
+<p>It's actually pretty simple: First, navigate to &quot;Services&quot;-&quot;Compose&quot;-&quot;Files&quot; in the OMV web UI. Then, selecting the &quot;pull&quot; button gets the latest container version from the registry. This can take a couple of minutes. Afterwards, the container needs to be taken down using the &quot;down&quot; button and started again using &quot;up&quot;.</p>
+<p>Assuming the container has been <a href="https://github.com/pi-hole/docker-pi-hole#quick-start">configured with volumes to store the user data</a>, no configuration data is lost - it's an inplace upgrade just like using <code>pihole-up</code>.</p>
+</div></div></article></ul></main>
+	
+	<hr>
+	<footer><div class="container">
+		Made with <a href="https://github.com/BlazorStatic/BlazorStatic">BlazorStatic</a> and <a href="https://terminalcss.xyz/">Terminal CSS</a>.
+		</div></footer></div>
+        </body></html>

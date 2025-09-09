@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/"> 
+    <link rel="stylesheet" href="terminal-css-customized.css">
+    <link rel="stylesheet" href="custom.css">
+    
+    </head>
+
+<body class="terminal"><div class="container"><div class="container"><div class="terminal-nav"><header><div style="white-space: nowrap;">lennartb&#x27;s blog</div></header>
+        <nav class="terminal-menu"><ul><li><a href="">Home
+                    </a></li><li><a href="posts">Posts
+                    </a></li><li><a href="imprint">Imprint
+                    </a></li></ul></nav></div></div>
+
+	<main><article><div><header><div><h2>Increasing the ASP.NET Core upload limit for a specific endpoint via attribute</h2></div></header>
+            <div class="container"><p>By default, ASP.NET Core <a href="https://github.com/aspnet/Announcements/issues/267">limits the max request body size to 30 MB</a>. The limit can be increased by using a middleware, or global Kestrel configuration, as described in the linked issue. What happens if you don't want to globally increase the limit, but just for a single endpoint? The same configuration can be packaged into an attribute, and the size limit can even be made dependent of an <code>IConfiguration</code> value.</p>
+<pre><code class="language-csharp">using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.Filters;
+
+namespace IncreaseUploadLimitDemo;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class UploadSizeLimitFilter(string appSettingsConfigName) : Attribute, IAuthorizationFilter
+{
+    public void OnAuthorization(AuthorizationFilterContext context)
+    {
+        var configuration = context.HttpContext.RequestServices.GetService&lt;IConfiguration&gt;();
+
+        if (configuration?.GetValue&lt;long?&gt;(appSettingsConfigName) is not { } maxRequestBodySize) return;
+
+        if (context.HttpContext.Features.Get&lt;IHttpMaxRequestBodySizeFeature&gt;() is { } maxRequestBodySizeFeature)
+        {
+            maxRequestBodySizeFeature.MaxRequestBodySize = maxRequestBodySize;
+        }
+    }
+}
+</code></pre>
+<p>An <code>IAuthorizationFilter</code> is used because <code>IHttpMaxRequestBodySizeFeature.MaxRequestBodySize</code> can only be set as long as the request has not been read yet, which is the case for a regular <code>IActionFilter</code> for example.</p>
+<p>Assuming the configuration value name <code>MaxRequestBodySize</code> has been set in <code>appsettings.json</code> similar to this:</p>
+<pre><code class="language-json">{
+  &quot;Logging&quot;: {
+    &quot;LogLevel&quot;: {
+      &quot;Default&quot;: &quot;Information&quot;,
+      &quot;Microsoft.AspNetCore&quot;: &quot;Warning&quot;
+    }
+  },
+  &quot;AllowedHosts&quot;: &quot;*&quot;,
+  &quot;MaxRequestBodySize&quot;: 500000000
+}
+
+</code></pre>
+<p>an endpoint can now be annotated with the previously implemented attribute:</p>
+<pre><code class="language-csharp"> [HttpGet(Name = &quot;GetWeatherForecast&quot;)]
+ [UploadSizeLimitFilter(&quot;MaxRequestBodySize&quot;)]
+ public IEnumerable&lt;WeatherForecast&gt; Get()
+ {
+     return Enumerable.Range(1, 5).Select(index =&gt; new WeatherForecast
+         {
+             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+             TemperatureC = Random.Shared.Next(-20, 55),
+             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+         })
+         .ToArray();
+ }
+</code></pre>
+</div>
+        <footer><div><h2>Tags</h2>
+                    <div><a>C#</a><a>ASP.NET Core</a><a>Programming</a></div></div>
+            <div><a>← Back to the home</a></div></footer></div></article></main>
+	
+	<hr>
+	<footer><div class="container">
+		Made with <a href="https://github.com/BlazorStatic/BlazorStatic">BlazorStatic</a> and <a href="https://terminalcss.xyz/">Terminal CSS</a>.
+		</div></footer></div>
+        </body></html>
