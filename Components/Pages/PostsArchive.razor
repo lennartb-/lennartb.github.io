@@ -1,0 +1,43 @@
+﻿@page "/posts"
+@using System.Globalization
+@using BlazorStatic
+@using BlazorStatic.Services
+@inject BlazorStaticContentService<BlogFrontMatter> blazorStaticContentService
+<ul>
+	@foreach (var post in posts.OrderByDescending(x => x.FrontMatter.Published))
+	{
+		<div class="container list-separators">
+			<div class="flex-list">
+				<time style="white-space: nowrap;" datetime="@post.FrontMatter.Published.ToString("yyyy-MM-ddTHH:mm:ss.fffK", CultureInfo.InvariantCulture)">
+					@post.FrontMatter.Published.ToString("MMMM d, yyyy", new CultureInfo("en-US"))
+				</time>
+				<nav class="terminal-menu">
+					<ul style="margin-top: 0">
+						<li>Tags:</li>
+						@foreach (var tag in post.FrontMatter.Tags)
+						{
+							<li>
+								#<a href="@blazorStaticContentService.Options.Tags.TagsPageUrl/@tag">@tag</a>
+							</li>
+						}
+					</ul>
+				</nav>
+			</div>
+			<h2>
+				<a href="@blazorStaticContentService.Options.PageUrl/@(post.Url)">@post.FrontMatter.Title</a>
+			</h2>
+		</div>
+	}
+</ul>
+
+@code {
+	List<Post<BlogFrontMatter>> posts = [];
+
+	[Parameter] public List<Post<BlogFrontMatter>>? Posts { get; set; }
+
+	protected override void OnInitialized()
+	{
+		posts = (Posts != null ? Posts.OrderBy(x => x.FrontMatter.Published).ToList() : blazorStaticContentService.Posts).Take(5).ToList();
+		base.OnInitialized();
+	}
+}

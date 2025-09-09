@@ -1,0 +1,61 @@
+﻿@page "/"
+@page "/blog/{fileName}"
+@using System.Globalization
+@using BlazorStatic
+@using BlazorStatic.Services
+@inject BlazorStaticContentService<BlogFrontMatter> blazorStaticContentService
+
+
+@* No filename -> show latest posts *@
+@if (string.IsNullOrWhiteSpace(FileName))
+{
+    <div>
+        <PostsList />
+    </div>
+    return;
+}
+
+@* Show specific post by filename param *@
+@if (post == null)
+{
+    <div>Post not found 🤷 </div>
+    return;
+}
+<article>
+    <div>
+        <header>
+            <div>
+                <h2>@post.FrontMatter.Title</h2>
+            </div>
+        </header>
+            <div class="container">
+                @((MarkupString)post.HtmlContent)
+            </div>
+        <footer>
+                <div>
+                    <h2>Tags</h2>
+                    <div>
+                        @foreach (var tag in post.FrontMatter.Tags)
+                        {
+                            <a>@tag</a>
+                        }
+                    </div>
+                </div>
+            <div>
+                <a>← Back to the home</a>
+            </div>
+        </footer>
+    </div>
+</article>
+
+
+@code {
+    [Parameter] public string? FileName { get; set; }
+    Post<BlogFrontMatter>? post;
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrWhiteSpace(FileName)) return;
+        post = blazorStaticContentService.Posts.FirstOrDefault(x => x.Url == FileName);
+    }
+}

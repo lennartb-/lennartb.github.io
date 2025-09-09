@@ -1,0 +1,32 @@
+﻿<div class="container">
+    <div class="terminal-nav">
+        <header>
+            <div style="white-space: nowrap;">@WebsiteKeys.Title</div>
+        </header>
+        <nav class="terminal-menu">
+            <ul>
+            @foreach (var item in menuItems)
+            {
+                <li>
+                <NavLink Match="@(item.Link == "" ? NavLinkMatch.All : NavLinkMatch.Prefix)" href="@item.Link">
+                    @((MarkupString)item.Name)
+                    <Svg Icon="item.Icon"/>
+                </NavLink>
+                </li>
+            }
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@code
+{
+    readonly List<MenuItem> menuItems =
+    [
+        new("Home", ""),
+        new("Posts", "posts"),
+        new("Imprint", "imprint")
+    ];
+
+    record MenuItem(string Name, string Link, Svg.Icons? Icon = null);
+}

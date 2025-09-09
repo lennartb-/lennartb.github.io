@@ -1,0 +1,21 @@
+﻿.list-separators {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #a3abba;
+}
+
+    .list-separators:last-child {
+        border-bottom: none;
+    }
+
+.flex-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px
+}
+
+@media (max-width: 480px) {
+    .flex-list {
+        flex-direction: column;
+    }
+}
